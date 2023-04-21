@@ -1,0 +1,82 @@
+{
+  "name": "tcc-smart-trigger",
+  "version": "1.0.0",
+  "main": "dist/server/server.js",
+  "author": {
+    "name": "Antonius Harry",
+    "email": "a.harry@teravintech.com",
+    "url": "https://www.teravintech.com"
+  },
+  "contributors": [],
+  "private": true,
+  "scripts": {
+    "start": "node .",
+    "test": "jest --coverage",
+    "build": "yarn lint && tsc",
+    "lint": "eslint \"./src/**/*.ts\""
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.0",
+    "@types/jsontoxml": "^1.0.0",
+    "@types/koa": "2.0.39",
+    "@types/koa-bodyparser": "^5.0.1",
+    "@types/koa-helmet": "^3.1.2",
+    "@types/koa-mount": "^3.0.1",
+    "@types/koa-router": "7.0.23",
+    "@types/koa-static": "^4.0.0",
+    "@types/minio": "^7.0.1",
+    "@types/node-fetch": "^2.3.2",
+    "@types/sinon": "^5.0.5",
+    "@types/supertest": "^2.0.6",
+    "@types/validator": "^9.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "cross-env": "5.0.5",
+    "dotenv": "^6.2.0",
+    "eslint": "^7.18.0",
+    "redis-mock": "^0.33.0",
+    "reflect-metadata": "^0.1.12",
+    "sinon": "^6.3.5",
+    "sinon-test": "^2.3.0",
+    "ts-jest": "^24.0.2",
+    "ts-node": "3.3.0",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "@pixelygroup/keycloak-koa-connect": "^0.9.5",
+    "@types/bluebird": "^3.5.29",
+    "@types/koa2-cors": "^2.0.1",
+    "@types/lodash": "^4.14.119",
+    "@types/redis-mock": "^0.17.0",
+    "axios": "^0.21.1",
+    "azure-storage": "^2.10.2",
+    "dayjs": "^1.9.7",
+    "ibm_db": "^2.8.1",
+    "koa": "2.3.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-helmet": "^4.0.0",
+    "koa-mount": "^4.0.0",
+    "koa-router": "7.2.1",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "le-validator2": "^0.4.1",
+    "node-fetch": "^2.6.0",
+    "node-gyp": "^9.0.0",
+    "partial-responsify": "0.9.0",
+    "validator": "^10.4.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testMatch": [
+      "<rootDir>/test/*.test.+(ts|tsx|js)"
+    ]
+  },
+  "packageManager": "yarn@3.1.1"
+}
