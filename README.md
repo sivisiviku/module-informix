@@ -24,11 +24,6 @@ Modify `/src/lib/config/index.ts` OR just add environment variables used by the 
 
 ## Adding entity
 1. Create a new entity in `/src/entity`, then export it via `/src/entity/index.ts`
-2. Import it to `/src/di/index.ts` then register it to entities field inside AppTypeOrm.
-
-## Adding service
-1. Add a new service in `/src/services`, then export it via `/src/services/index.ts`
-2. Import it to `/src/di/index.ts` then register it to the di.
 
 ## Adding new controller
 1. Add a file to `/src/server/allRoutes/api/v1/[METHOD]`.

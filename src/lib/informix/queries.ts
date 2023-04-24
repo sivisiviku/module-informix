@@ -108,7 +108,7 @@ export class Informix {
         return new Promise(async (resolve, reject) => {
             const mappedFields = Object.keys(data);
             const mappedValues = Object.values(data);
-            const query = `UPDATE ${tableName} SET (${mappedFields.join(',')}) = (${"?,".repeat(mappedFields.length - 1)}?) WHERE ${identifierColumn} = "${identifierValue}";`;
+            const query = `UPDATE ${tableName} SET (${mappedFields.join(',')}) = (${"?,".repeat(mappedFields.length - 1)}?) WHERE ${identifierColumn} = ${identifierValue};`;
             const respData: any = this.dbObj.querySync({ sql: query, params: mappedValues });
 
             if(respData.error) {

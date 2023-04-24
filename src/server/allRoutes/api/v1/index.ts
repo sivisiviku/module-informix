@@ -2,7 +2,7 @@ import { IAllRoute, IOpenApiRoute } from "../../../../interface";
 
 // ROUTE CONTROLER IMPORTS
 // GET ROUTES
-
+import { openapiGetCustomer, getCustomer } from "./get/getCustomer";
 
 // POST ROUTES
 import { openapiPostFloor, postFloor } from "./post/postFloor";
@@ -14,6 +14,7 @@ import { openapiPostCustomer, postCustomer } from "./post/postCustomer";
 import { openapiUpdateFloor, updateFloor } from "./put/putFloor";
 import { openapiUpdateArea, updateArea } from "./put/putArea";
 import { openapiUpdateDevice, updateDevice } from "./put/putDevice";
+import { openapiUpdateCustomer, updateCustomer } from "./put/putCustomer";
 
 // DELETE ROUTES
 import { openapiDeleteFloor, deleteFloor } from "./delete/deleteFloor";
@@ -30,6 +31,7 @@ interface IRouteTuple {
 // REGISTER THE ROUTE CONTROLLER HERE
 const routes: IRouteTuple[] = [
     //GET ROUTES
+    [openapiGetCustomer, getCustomer],
 
     // POST ROUTES
     [openapiPostFloor, postFloor],
@@ -41,6 +43,7 @@ const routes: IRouteTuple[] = [
     [openapiUpdateFloor, updateFloor],
     [openapiUpdateArea, updateArea],
     [openapiUpdateDevice, updateDevice],
+    [openapiUpdateCustomer, updateCustomer],
 
     // DELETE ROUTES
     [openapiDeleteFloor, deleteFloor],

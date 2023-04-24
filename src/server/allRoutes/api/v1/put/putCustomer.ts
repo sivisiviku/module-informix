@@ -1,12 +1,21 @@
 import { IRouterContext } from "koa-router";
-import { IAllRoute, IDI, IOpenApiRoute } from "../../../../../interface";
-import { BodyFormat, ValidatorGetParam } from "../../../../../lib";
 import { Customers } from "../../../../../entity";
+import { IAllRoute, IDI, IOpenApiRoute } from "../../../../../interface";
+import { BodyFormat, ValidatorGetParam, ValidatorPathParam } from "../../../../../lib";
 
-
-const path = "/v1/customer";
-const method = "POST";
+const path = "/v1/customer/:id";
+const method = "PUT";
 const get: ValidatorGetParam[] = [];
+
+const pathParams: ValidatorPathParam[] = [{
+    name: "id",
+    required: false,
+    swagger: {
+        description: "",
+        example: "",
+    },
+    type: "string",
+}];
 
 const body: BodyFormat = {
     required: true,
@@ -19,10 +28,6 @@ const body: BodyFormat = {
         },
     },
     fields: { // To Be Determined
-        id: {
-            type: "number",
-            required: true
-        },
         firstname: {
             type: "string",
             required: true
@@ -45,50 +50,51 @@ const body: BodyFormat = {
 
 const func = async (ctx: IRouterContext): Promise<void> => {
     const di: IDI = ctx.state.di;
-    console.log(di.toString(), body.toString());
-
+    
+    // Validate query params
+    di.validator.processQuery(get, ctx.request.query);
+    const params = di.validator.processPath<{ id: number }>(pathParams, ctx.params);
     const requestBody = di.validator.processBody<{
-        id: number,
         firstname: string,
         lastname: string,
         birthdate: string,
         email: string
     }>(body, ctx.request.body);
     
-    const exist = di.informix.findOne("customers", "id", requestBody.id);
-    if(exist.data) {
-        ctx.status = 400;
+    const exist = di.informix.findOne("customers", "id", params.id);
+
+    if(exist.error) {
+        ctx.status = exist.status;
         ctx.body = {
-            message: `Customer id ${requestBody.id} already exist.`
-        };
+            message: exist.message,
+        }
         return;
     }
-    const customer: Customers = {
-        id: requestBody.id,
+    
+    const updateData = {
         firstname: requestBody.firstname,
         lastname: requestBody.lastname,
         birthdate: requestBody.birthdate,
-        email: requestBody.email,
+        email: requestBody.email
     }
-    await di.informix.insertData("customers", customer);
-
-    ctx.status = 200;
+    const updateRecord: any = await di.informix.updateByColumn("customers", updateData, "id", Number(params.id));
+    ctx.status = updateRecord.status,
     ctx.body = {
-        message: `Customer Data Added.`,
-        id: requestBody.id
+        message: updateRecord.message,
+        data: di.informix.findOne("customers", "id", params.id).data
     }
 }
 
 
-export const openapiPostCustomer: IOpenApiRoute = {
+export const openapiUpdateCustomer: IOpenApiRoute = {
     // disabled: true,
     get,
     method,
     path,
-    tags: ["customer"],
+    tags: ["area"],
 };
 
-export const postCustomer: IAllRoute = {
+export const updateCustomer: IAllRoute = {
     func,
     method,
     path,
